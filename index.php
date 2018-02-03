@@ -1,8 +1,54 @@
+
+<?php
+
+/*
+The following module creates an events website
+and also stores the data about the event in
+the database.
+*/
+
+session_start();
+$_EVENT_MESSAGE = "";
+$_EVENT_URL = "";
+
+// Database
+$mysqli = new mysqli('localhost', 'memo', 'memo', 'USER');
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+    $title                      = $mysqli->real_escape_string($_POST['title']);
+    $description         = $mysqli->real_escape_string($_POST['description']);
+    $date                     = $mysqli->real_escape_string($_POST['date']);
+    $location               = $mysqli->real_escape_string($_POST['location']);
+    $secret_code        = $mysqli->real_escape_string($_POST['secret_code']);
+    $event_question  = $mysqli->real_escape_string($_POST['event_question']);
+    $event_answers   = "";
+    $url                         = "";
+
+    $insql = "INSERT INTO event (event_title, event_description, event_date, location, secret_code, event_question, url) "
+    ."VALUES ('$title', '$description', '$date', '$location', '$secret_code', '$event_question','$url')";
+
+    // if the query is succesful, redirect to main.php page, done!
+    if ($mysqli->query($insql) === true) {
+        $get_sql = "SELECT * FROM event WHERE event_title = '$title' ";
+        $event_result = $mysqli->query($get_sql);
+        $idrow = $event_result->fetch_assoc();
+        $_EVENT_URL = "websiteurl.com/eventid=".$idrow["id"];
+        $_EVENT_MESSAGE = "<h2 class='event-success'> Your event was successfully created. Link: $_EVENT_URL</h2>";
+    }
+
+}
+?>
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
   <head>
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
@@ -78,7 +124,7 @@
           </div>
         </div>
         <div class="row text-center">
-          
+
           <div class="col-md-4">
 
             <span class="fa-stack fa-4x">
@@ -119,40 +165,46 @@
         </div>
         <div class="row">
           <div class="col-lg-12">
-          <div class="formcontainer">  
+          <div class="formcontainer">
             <form id="new_event" action="" method="post">
               <h3>Create a new event</h3>
               <h4>Please input the details below to create a new event</h4>
               <fieldset>
-                <input placeholder="Your Event Title" name="title" type="text" tabindex="1" required autofocus>
+                <input placeholder="Your Event Title" name="title" type="text" required autofocus>
               </fieldset>
               <fieldset>
-                <input placeholder="Event Location" type = "text" tabindex="3" required>
+                <input name="location" placeholder="Event Location" type = "text" required>
               </fieldset>
               <fieldset>
-                <textarea name = "description" placeholder="Input your event description..." tabindex="5" required></textarea>
+                <textarea name = "description" placeholder="Input your event description..." required></textarea>
               </fieldset>
               <fieldset>
                 <p>Date</p>
-                <input name = "date" type="date" tabindex="2" required> 
+                <input name = "date" type="date" required>
               </fieldset>
               <fieldset>
                 <p>Time</p>
-                <input name = "time" type="time" tabindex="2" required>
+                <input name = "time" type="time"required>
               </fieldset>
 
               <fieldset>
-                <input name = "secret_code" placeholder = "Secret code only event-goers will know" type="text" tabindex="2" required>
+                <input name = "secret_code" placeholder = "Secret code only event-goers will know" type="text" required>
               </fieldset>
 
               <fieldset>
-                <textarea name = "event_question" placeholder="Input a question to ask the event goers..." tabindex="5" required></textarea>
+                <textarea name = "event_question" placeholder="Input a question to ask the event goers..." required></textarea>
               </fieldset>
 
               <fieldset>
                 <button name="submit" type="submit" id="newevent-submit" data-submit="...Sending">Submit</button>
               </fieldset>
             </form>
+
+
+            <div class="event-create-success"> <?=$_EVENT_MESSAGE?> </div>
+
+
+
           </div>
           </div>
 

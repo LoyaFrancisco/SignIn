@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
 
       <input type="text" placeholder="User Name" name="username" required /><br />
-      <input type="text" placeholder="Answer to event question:" name="answer" required /><br />
+      <input type="text" placeholder="Answer to event question:" name="answer"  /><br />
       <input type="text" placeholder="Event Code" name="event_code"  required /><br />
       <input type="submit" value="Register me to the awesomeness!" name="Register" class="register btn"/>
 

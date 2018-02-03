@@ -8,7 +8,8 @@ the database.
 */
 
 session_start();
-$_REGISTER_MESSAGE = "";
+$_EVENT_MESSAGE = "";
+$_EVENT_URL = "";
 
 // Database
 $mysqli = new mysqli('localhost', 'memo', 'memo', 'USER');
@@ -24,17 +25,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     $event_answers   = "";
     $url                         = "";
 
-    $sql = "INSERT INTO event (event_title, event_description, event_date, location, secret_code, event_question, url) "
+    $insql = "INSERT INTO event (event_title, event_description, event_date, location, secret_code, event_question, url) "
     ."VALUES ('$title', '$description', '$date', '$location', '$secret_code', '$event_question','$url')";
 
     // if the query is succesful, redirect to main.php page, done!
-    if ($mysqli->query($sql) === true) {
-      $_REGISTER_MESSAGE = "Event $title Created!";
-      // header("Location:created.php?title='.$title'");
+    if ($mysqli->query($insql) === true) {
+        $get_sql = "SELECT * FROM event WHERE event_title = '$title' ";
+        $event_result = $mysqli->query($get_sql);
+        $idrow = $event_result->fetch_assoc();
+        $_EVENT_URL = "websiteurl.com/eventid=".$idrow["id"];
+        $_EVENT_MESSAGE = "<h1 class='event-success'> Your event was successfully created. Link: $_EVENT_URL</h1>";
     }
-    else {
-        echo $mysqli->error;
-    }
+
 }
 ?>
 
