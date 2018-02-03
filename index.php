@@ -173,6 +173,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                 <input placeholder="Your Event Title" name="title" type="text" required autofocus>
               </fieldset>
               <fieldset>
+<<<<<<< HEAD:index.php
                 <input name="location" placeholder="Event Location" type = "text" required>
               </fieldset>
               <fieldset>
@@ -185,6 +186,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
               <fieldset>
                 <p>Time</p>
                 <input name = "time" type="time"required>
+=======
+                <input placeholder="Event Location" name = "location" type = "text"  required>
+              </fieldset>
+              <fieldset>
+                <textarea name = "description" placeholder="Input your event description..." tabindex="1" required></textarea>
+              </fieldset>
+              <fieldset>
+                <p>Date</p>
+                <input name = "date" type="date" tabindex="1" required> 
+              </fieldset>
+              <fieldset>
+                <p>Time</p>
+                <input name = "time" type="time" tabindex="1" required>
+>>>>>>> f782976abf27324b97e0f620503d4a2a61637387:index.html
               </fieldset>
 
               <fieldset>
