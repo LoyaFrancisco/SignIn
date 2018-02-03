@@ -90,9 +90,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
               <a class="nav-link js-scroll-trigger" href="#portfolio">Planning an Event</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#calendar">Calendar</a>
-            </li>
-            <li class="nav-item">
               <a class="nav-link js-scroll-trigger" href="#team">Team</a>
             </li>
             <li class="nav-item">
@@ -104,7 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     </nav>
 
     <!-- Header -->
-    <header class="masthead">
+    <header class="masthead index">
       <div class="container">
         <div class="intro-text">
           <div class="intro-lead-in">Welcome To the Ulitmate Event Planner!</div>
@@ -173,7 +170,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                 <input placeholder="Your Event Title" name="title" type="text" required autofocus>
               </fieldset>
               <fieldset>
-<<<<<<< HEAD:index.php
                 <input name="location" placeholder="Event Location" type = "text" required>
               </fieldset>
               <fieldset>
@@ -186,7 +182,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
               <fieldset>
                 <p>Time</p>
                 <input name = "time" type="time"required>
-=======
                 <input placeholder="Event Location" name = "location" type = "text"  required>
               </fieldset>
               <fieldset>
@@ -199,7 +194,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
               <fieldset>
                 <p>Time</p>
                 <input name = "time" type="time" tabindex="1" required>
->>>>>>> f782976abf27324b97e0f620503d4a2a61637387:index.html
               </fieldset>
 
               <fieldset>
@@ -227,24 +221,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
       </div>
     </section>
 
-    <!-- Calendar -->
-    <section id="calendar">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-12 text-center">
-            <h2 class="section-heading text-uppercase">Google Calendar</h2>
-            <h3 class="section-subheading text-muted">The synced calendar below shows all of the events planned in the future</h3>
-          </div>
-        </div>
-        <div class="row">
-
-          <!--INSERT CONTENT HERE-->
-        </div>
-      </div>
-    </section>
-
     <!-- Team -->
-    <section class="bg-light" id="team">
+    <section id="team">
       <div class="container">
         <div class="row">
           <div class="col-lg-12 text-center">
@@ -257,7 +235,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
             <div class="team-member">
               <img class="mx-auto rounded-circle" src="img/team/Guillermo.jpg" alt="">
               <h4>Guillermo Sanchez</h4>
-              <p class="text-muted">Back-end developer</p>
+              <p class="text-muted">Back-end developer | Database integration</p>
               <ul class="list-inline social-buttons">
                 <li class="list-inline-item">
                   <a href="#">
@@ -305,7 +283,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
             <div class="team-member">
               <img class="mx-auto rounded-circle" src="img/team/Miguel.jpg" alt="">
               <h4>Miguel Barba</h4>
-              <p class="text-muted">Back-end Developer.</p>
+              <p class="text-muted">Back-end Developer | "Ooo Chips Bruh!"</p>
               <ul class="list-inline social-buttons">
                 <li class="list-inline-item">
                   <a href="#">

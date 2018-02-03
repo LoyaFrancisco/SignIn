@@ -335,6 +335,10 @@ header.masthead {
   background-size: cover;
 }
 
+header.masthead .member{
+  background-image: url("../img/Group_gather-bg.jpg");
+}
+
 header.masthead .intro-text {
   padding-top: 150px;
   padding-bottom: 100px;
