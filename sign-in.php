@@ -191,7 +191,8 @@
      </section>
 
 <?php
-    require_once "templates/footer.html"
+    require_once "templates/footer.html";
+    session_destroy();
  ?>
 
      <!-- Bootstrap core JavaScript -->

@@ -35,8 +35,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         $get_sql = "SELECT * FROM event WHERE event_title = '$title' ";
         $event_result = $mysqli->query($get_sql);
         $idrow = $event_result->fetch_assoc();
-        $_EVENT_URL = "websiteurl.com/eventid=".$idrow["id"];
-        $_EVENT_MESSAGE = "<h2 class='event-success'> Your event was successfully created. Link: $_EVENT_URL</h2>";
+        $_EVENT_URL = "<a href='sign-in.php?eventid={$idrow['id']}'>Click to View</a>";
+        $_EVENT_MESSAGE = "<h3> Your event was successfully created. $_EVENT_URL</h3>";
     }
 
 }
@@ -97,23 +97,28 @@ include_once "templates/main-top.html"
               </fieldset>
             </form>
 
-
             <div class="event-create-success"> <?=$_EVENT_MESSAGE?> </div>
+             <div class="container">
 
-             <div class="row text-center">
-                <div class="col-md-4">
+                <div class="col-md-12 col-lg-12 text-center">
                   <h4 class="service-heading">Recent Events Created</h4>
+                </div>
                   <?php
+                  function refresh_events( $get_events_result) {
                       if (mysqli_num_rows($get_events_result) > 0 ) {
                           while ($row = mysqli_fetch_array($get_events_result)) {
-                              echo "<a href='sign-in.php?eventid={$row['id']}'>{$row['event_title']}</a></br>\n";
+                              echo "<div class='text-center'><a href='sign-in.php?eventid={$row['id']}'>{$row['event_title']}</a></div>\n";
                           }
                       }
                       else {
                           echo "<h2> No reent events </h2>";
                       }
+                  }
+                  if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+                      refresh_events($get_events_result);
+                  }
+                  refresh_events($get_events_result);
                    ?>
-                </div>
             </div>
 
 
@@ -126,6 +131,7 @@ include_once "templates/main-top.html"
     </section>
 
     <?php
-    include_once "templates/footer.html";
     include_once "templates/main-bottom.html";
+    include_once "templates/footer.html";
+    session_destroy();
      ?>
