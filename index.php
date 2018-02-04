@@ -10,9 +10,12 @@ the database.
 session_start();
 $_EVENT_MESSAGE = "";
 $_EVENT_URL = "";
+$_EVENTS_LIST = array();
 
 // Database
 $mysqli = new mysqli('localhost', 'memo', 'memo', 'USER');
+$get_events             =  "SELECT * FROM event";
+$get_events_result = mysqli_query($mysqli, $get_events);
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
@@ -25,22 +28,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     $event_answers   = "";
     $url                         = "";
 
-    $insql = "INSERT INTO event (event_title, event_description, event_date, location, secret_code, event_question, url) "
-    ."VALUES ('$title', '$description', '$date', '$location', '$secret_code', '$event_question','$url')";
+    $insql = "INSERT INTO event (event_title, event_description, event_date, location,
+            secret_code, event_question, url) "
+            ."VALUES ('$title', '$description', '$date', '$location',
+             '$secret_code', '$event_question','$url')";
 
     // if the query is succesful, redirect to main.php page, done!
     if ($mysqli->query($insql) === true) {
-        $get_sql = "SELECT * FROM event WHERE event_title = '$title' ";
-        $event_result = $mysqli->query($get_sql);
-        $idrow = $event_result->fetch_assoc();
-        $_EVENT_URL = "websiteurl.com/eventid=".$idrow["id"];
+        $get_sql            = "SELECT * FROM event WHERE event_title = '$title' ";
+        $event_result   = $mysqli->query($get_sql);
+        $id_row             = $event_result->fetch_assoc();
+
+        $_EVENT_URL           = "websiteurl.com/eventid=".$id_row["id"];
         $_EVENT_MESSAGE = "<h2 class='event-success'> Your event was successfully created. Link: $_EVENT_URL</h2>";
     }
-
 }
 ?>
 
+<?php
+    include "templates/main-top.html";
+ ?>
 
+<<<<<<< HEAD
 
 
 
@@ -153,6 +162,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
     <section class="bg-light" id="portfolio">
       <div class="container">
+=======
+>>>>>>> 269256b6e36c9425e3193ae45d5e4dee2ee4f535
     <!-- Planning Event -->
         <div class="row">
           <div class="col-lg-12 text-center">
@@ -188,6 +199,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                 <textarea name = "description" placeholder="Input your event description..." tabindex="1" required></textarea>
               </fieldset>
               <fieldset>
+<<<<<<< HEAD
                 <p>Date</p>
                 <input name = "date" type="date" tabindex="1" required> 
               </fieldset>
@@ -205,13 +217,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
               </fieldset>
 
               <fieldset>
+=======
+>>>>>>> 269256b6e36c9425e3193ae45d5e4dee2ee4f535
                 <button name="submit" type="submit" id="newevent-submit" data-submit="...Sending">Submit</button>
               </fieldset>
             </form>
 
-
             <div class="event-create-success"> <?=$_EVENT_MESSAGE?> </div>
 
+<<<<<<< HEAD
 
 
           </div>
@@ -301,117 +315,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                   </a>
                 </li>
               </ul>
+=======
+            <div class="row text-center">
+                <div class="col-md-4">
+                  <h4 class="service-heading">Recent Events Created</h4>
+                  <?php
+                      if (mysqli_num_rows($get_events_result) > 0) {
+                          while ($row = mysqli_fetch_array($get_events_result)) {
+                              echo "<a href='#'>{$row['event_title']}</a></br>\n";
+                          }
+                      }
+                      else {
+                          echo "<h2> No reent events </h2>";
+                      }
+                   ?>
+                </div>
+>>>>>>> 269256b6e36c9425e3193ae45d5e4dee2ee4f535
             </div>
+
           </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-8 mx-auto text-center">
-            <p class="large text-muted">Team of 3 UC Irvine students created a web app that will allow event managers to create events and keep track of those who went.</p>
           </div>
+
         </div>
       </div>
     </section>
 
-
-    <!-- Contact -->
-    <section id="contact">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-12 text-center">
-            <h2 class="section-heading text-uppercase">Contact Us</h2>
-            <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-12">
-            <form id="contactForm" name="sentMessage" novalidate>
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <input class="form-control" id="name" type="text" placeholder="Your Name *" required data-validation-required-message="Please enter your name.">
-                    <p class="help-block text-danger"></p>
-                  </div>
-                  <div class="form-group">
-                    <input class="form-control" id="email" type="email" placeholder="Your Email *" required data-validation-required-message="Please enter your email address.">
-                    <p class="help-block text-danger"></p>
-                  </div>
-                  <div class="form-group">
-                    <input class="form-control" id="phone" type="tel" placeholder="Your Phone *" required data-validation-required-message="Please enter your phone number.">
-                    <p class="help-block text-danger"></p>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <textarea class="form-control" id="message" placeholder="Your Message *" required data-validation-required-message="Please enter a message."></textarea>
-                    <p class="help-block text-danger"></p>
-                  </div>
-                </div>
-                <div class="clearfix"></div>
-                <div class="col-lg-12 text-center">
-                  <div id="success"></div>
-                  <button id="sendMessageButton" class="btn btn-primary btn-xl text-uppercase" type="submit">Send Message</button>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-      <div class="container">
-        <div class="row">
-          <div class="col-md-4">
-            <span class="copyright">Copyright &copy; Your Website 2018</span>
-          </div>
-          <div class="col-md-4">
-            <ul class="list-inline social-buttons">
-              <li class="list-inline-item">
-                <a href="#">
-                  <i class="fa fa-twitter"></i>
-                </a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#">
-                  <i class="fa fa-facebook"></i>
-                </a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#">
-                  <i class="fa fa-linkedin"></i>
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div class="col-md-4">
-            <ul class="list-inline quicklinks">
-              <li class="list-inline-item">
-                <a href="#">Privacy Policy</a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#">Terms of Use</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </footer>
-
-    <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Plugin JavaScript -->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
-    <!-- Contact form JavaScript -->
-    <script src="js/jqBootstrapValidation.js"></script>
-    <script src="js/contact_me.js"></script>
-
-    <!-- Custom scripts for this template -->
-    <script src="js/agency.min.js"></script>
-
-  </body>
-
-</html>
+    <?php
+    include "templates/main-bottom.html";
+     ?>
