@@ -101,7 +101,9 @@ include_once "templates/main-top.html"
              <div class="container">
 
                 <div class="col-md-12 col-lg-12 text-center">
+                  <br><br><br>
                   <h4 class="service-heading">Recent Events Created</h4>
+                  <h3>---------------------------------------------</h3>
                 </div>
                   <?php
                   function refresh_events( $get_events_result) {
@@ -111,7 +113,7 @@ include_once "templates/main-top.html"
                           }
                       }
                       else {
-                          echo "<h2> No reent events </h2>";
+                          echo "<h2> No recent events </h2>";
                       }
                   }
                   if ($_SERVER['REQUEST_METHOD'] == 'POST'){
