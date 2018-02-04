@@ -12,11 +12,7 @@ $_EVENT_MESSAGE = "";
 $_EVENT_URL = "";
 
 // Database
-$mysqli                     = new mysqli('localhost', 'memo', 'memo', 'USER');
-
-$get_events             =  "SELECT * FROM event";
-$get_events_result = mysqli_query($mysqli, $get_events);
-
+$mysqli = new mysqli('localhost', 'memo', 'memo', 'USER');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
@@ -29,24 +25,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     $event_answers   = "";
     $url                         = "";
 
-    $insql = "INSERT INTO event (event_title, event_description, event_date, location,
-            secret_code, event_question, url) "
-            ."VALUES ('$title', '$description', '$date', '$location',
-             '$secret_code', '$event_question','$url')";
+    $insql = "INSERT INTO event (event_title, event_description, event_date, location, secret_code, event_question, url) "
+    ."VALUES ('$title', '$description', '$date', '$location', '$secret_code', '$event_question','$url')";
 
     // if the query is succesful, redirect to main.php page, done!
     if ($mysqli->query($insql) === true) {
-        $get_sql            = "SELECT * FROM event WHERE event_title = '$title' ";
-        $event_result   = $mysqli->query($get_sql);
-        $id_row             = $event_result->fetch_assoc();
-
-        $_EVENT_URL           = "websiteurl.com/eventid=".$id_row["id"];
-        $_EVENT_MESSAGE = "<h2 class='event-success'> Your event was successfully created. Link: $_EVENT_URL</h2>";
+        $get_sql = "SELECT * FROM event WHERE event_title = '$title' ";
+        $event_result = $mysqli->query($get_sql);
+        $idrow = $event_result->fetch_assoc();
+        $_EVENT_URL = "websiteurl.com/eventid=".$idrow["id"];
+        $_EVENT_MESSAGE = "<h1 class='event-success'> Your event was successfully created. Link: $_EVENT_URL</h1>";
     }
+
 }
-
-
-    // <p class="text-muted"></p>
 ?>
 
 <!DOCTYPE html>
@@ -68,16 +59,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
             <input type="submit" value="Create event!" name="Register" class="register btn"/>
             <div class="" > <? $_REGISTER_MESSAGE ?> </div>
         </form>
-        <?php
-            if (mysqli_num_rows($get_events_result) > 0) {
-                while ($row = mysqli_fetch_array($get_events_result)) {
-                    echo "{$row['event_title']}</br>\n";
-                }
-            }
-            else {
-                echo "<h2> No reent events </h2>";
-            }
-         ?>
 
     </body>
 </html>
