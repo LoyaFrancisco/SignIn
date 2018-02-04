@@ -96,16 +96,35 @@ include_once "templates/main-top.html"
                 <button name="submit" type="submit" id="newevent-submit" data-submit="...Sending">Submit</button>
               </fieldset>
             </form>
+            <!--delete-->
+            <!--\.delete-->
 
-            <div class="event-create-success"> <?=$_EVENT_MESSAGE?> </div>
-             <div class="container">
 
-                <div class="col-md-12 col-lg-12 text-center">
-                  <br><br><br>
-                  <h4 class="service-heading">Recent Events Created</h4>
-                  <h3>---------------------------------------------</h3>
-                </div>
-                  <?php
+          </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+<!-- Display URL -->
+<section id="Event creation">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <h2 class="section-heading text-uppercase">New event URL</h2>
+        <h3 class="section-subheading text-muted">After creating an event above, your new URL will appear here</h3>
+      </div>
+    </div>
+    <div class="row text-center">
+
+      <div class="col-md-12">
+          <div class="event-create-success"> <?=$_EVENT_MESSAGE?> 
+          </div>
+            <div class="container">
+              <div class="col-md-12 col-lg-12 text-center">
+              </div>
+                <?php
                   function refresh_events( $get_events_result) {
                       if (mysqli_num_rows($get_events_result) > 0 ) {
                           while ($row = mysqli_fetch_array($get_events_result)) {
@@ -122,15 +141,11 @@ include_once "templates/main-top.html"
                   refresh_events($get_events_result);
                    ?>
             </div>
-
-
-
-          </div>
-          </div>
-
-        </div>
       </div>
-    </section>
+    </div>
+  </div>
+</section>
+
 
     <?php
     include_once "templates/main-bottom.html";
